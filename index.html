@@ -4,61 +4,219 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coming Soon | ify softworks</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Basic Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --bg-deep:    #0d1117;
+            --bg-card:    #161b22;
+            --teal:       #4a9d9c;
+            --teal-light: #6bbdbc;
+            --orange:     #f5a623;
+            --orange-dim: #c4841c;
+            --text:       #e6edf3;
+            --muted:      #7d8590;
+            --border:     rgba(255,255,255,0.07);
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #ffffff;
-            height: 100vh;
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text);
+            min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+
+        /* ── Glow blobs ── */
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.18;
+            pointer-events: none;
+            z-index: 0;
+            animation: drift 12s ease-in-out infinite alternate;
+        }
+        .blob-1 { width: 500px; height: 500px; background: var(--teal);   top: -100px; left: -100px; }
+        .blob-2 { width: 400px; height: 400px; background: var(--orange); bottom: -80px; right: -80px; animation-delay: -6s; }
+
+        @keyframes drift {
+            from { transform: translate(0, 0); }
+            to   { transform: translate(30px, 20px); }
+        }
+
+        /* ── Main card ── */
+        .card {
+            position: relative;
+            z-index: 1;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 3rem 3.5rem;
+            max-width: 580px;
+            width: calc(100% - 2rem);
             text-align: center;
+            box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+            animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
         }
 
-        .container {
-            padding: 2rem;
-            max-width: 600px;
+        @keyframes rise {
+            from { opacity: 0; transform: translateY(28px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            letter-spacing: -1px;
-        }
-
-        p {
-            font-size: 1.2rem;
-            color: #94a3b8;
+        /* ── Logo ── */
+        .logo-wrap {
             margin-bottom: 2.5rem;
-            line-height: 1.6;
         }
 
-        .center {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	width: 50%;
-	}
+        .logo-wrap img {
+            max-width: 320px;
+            width: 100%;
+            height: auto;
+        }
+
+        /* ── Heading ── */
+        h1 {
+            font-family: 'Space Mono', monospace;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+        }
+
+        h1 .accent { color: var(--orange); }
+
+        /* ── Sub-text ── */
+        .sub {
+            font-size: 1.05rem;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+        }
+
+        /* ── Divider ── */
+        .divider {
+            width: 48px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--teal), var(--orange));
+            border-radius: 2px;
+            margin: 0 auto 2.5rem;
+        }
+
+        /* ── App pill list ── */
+        .apps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            justify-content: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            padding: 0.35rem 0.9rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--muted);
+            transition: color 0.2s, border-color 0.2s, background 0.2s;
+        }
+
+        .pill:hover {
+            color: var(--text);
+            border-color: var(--teal-light);
+            background: rgba(74,157,156,0.1);
+        }
+
+        .pill .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* ── Status badge ── */
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(245,166,35,0.1);
+            border: 1px solid rgba(245,166,35,0.25);
+            border-radius: 999px;
+            padding: 0.4rem 1rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--orange);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .status::before {
+            content: '';
+            width: 7px;
+            height: 7px;
+            background: var(--orange);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50%       { opacity: 0.5; transform: scale(0.75); }
+        }
+
+        /* ── Footer ── */
+        footer {
+            position: relative;
+            z-index: 1;
+            margin-top: 1.5rem;
+            font-size: 0.78rem;
+            color: var(--muted);
+            opacity: 0.6;
+            animation: rise 0.7s 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
     </style>
 </head>
 <body>
 
-	<img src="assets/ifysoft_banner.png" class="center">
-	<br>
-    <div class="container">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
 
-        <h1>Coming Soon</h1>
-        <p>We're working hard to bring you something amazing.</p>
+    <div class="card">
+
+        <div class="logo-wrap">
+            <img src="assets/ifysoft_banner.png" alt="ify Softworks">
+        </div>
+
+        <h1>Coming <span class="accent">Soon.</span></h1>
+
+        <div class="divider"></div>
+
+        <p class="sub">
+            The robot is still being assembled.
+        </p>
+
+
+
+        <div class="status"></div>
 
     </div>
+
+    <footer>©2026 ify softworks</footer>
 
 </body>
 </html>
